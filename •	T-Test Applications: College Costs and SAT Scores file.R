@@ -1,4 +1,4 @@
-#start of PS12 coding questions - Laura Escher
+#T-Test Applications: College Costs and SAT Scores - Laura Escher
 
 library(stats)
 library(dplyr)
@@ -17,7 +17,6 @@ private_mean <- mean(na.omit(costs$Private))
 
 #private mean is 42.5 and sd is 6.98
 
-#2b
 n_priv <-length(na.omit((costs$Private)))
 n_public <- length(na.omit((costs$Public)))
 
@@ -26,7 +25,7 @@ point_estimate_costs <- public_mean - private_mean
 #Interpret this value in terms of the annual cost of attending private and public colleges:
 #Evaluated at the population mean, private colleges cost $20,200 more per year than public colleges.
 
-#2c we need a t test, pop sd not known
+#We need a t test, pop sd not known
 
 se_costs <- sqrt( (public_sd^2 ) / n_public  + ( private_sd^2 ) / n_priv )
 
@@ -43,7 +42,6 @@ print(paste('The 95% confidence interval is [', clower_costs, ',', cupper_costs,
 
 t.test(costs$Private, costs$Public, alternative = 'less', var.equal = FALSE)
 
-#4b
 View(sat)
 college_mean <- mean(sat$College)
 college_sd <- sd(sat$College)
@@ -54,7 +52,7 @@ hs_sd <- sd(na.omit(sat$High.School))
 point_estimate_sat <- college_mean - hs_mean
 #the point estimate of the difference between the means for the two populations is 38.
 
-#4c - we need a t test again because we do not know the population standard deviation.
+#We need a t test again because we do not know the population standard deviation.
 
 n_college <- length(na.omit((sat$College))) #16
 n_hs <- length(na.omit(sat$High.School)) #16
@@ -72,4 +70,5 @@ pvalue_sat <- pt(1.803753, df=df_final_sat, lower.tail = FALSE)
 print(pvalue_sat) #p-value is 0.04158621
 
 t.test(sat$College, sat$High.School, alternative = "greater", var.equal = FALSE)
+
        
